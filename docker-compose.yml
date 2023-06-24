@@ -40,3 +40,13 @@ services:
     volumes:
       - ./data/grafana:/var/lib/grafana
 
+  mariadb:
+    image: mariadb
+    container_name: mariadb
+    environment:
+      - MARIADB_ROOT_PASSWORD=Bossza555
+      - MARIADB_DATABASE=redistest
+    ports:
+      - 3306:3306
+    volumes:
+      - ./data/mariadb:/var/lib/mysql
