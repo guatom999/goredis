@@ -1,0 +1,7 @@
+docker-compose run --rm k6 run //scripts//test.js
+
+ทำไมเวลา run k6 ใน windows มันถึงต้องเป็น //script อะ
+
+docker compose run --rm k6 run //scripts//test.js
+
+// คำสั่งที่ใช้ในการ run k6 loadtest แล้วเก็ท data loadtest ไว้ใน influxDB
