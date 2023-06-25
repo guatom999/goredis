@@ -12,7 +12,8 @@ func main() {
 
 	db := initDatabase()
 
-	productRepo := repositories.NewProductRepositoeyDB(db)
+	db.AutoMigrate(&product{})
+	productRepo := repositories.NewProductRepositoryRedis(db)
 
 	products, err := productRepo.GetProducts()
 

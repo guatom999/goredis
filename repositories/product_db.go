@@ -8,14 +8,14 @@ import (
 	"gorm.io/gorm"
 )
 
-type productRepositoeyDB struct {
+type productRepositoryDB struct {
 	db *gorm.DB
 }
 
-func NewProductRepositoeyDB(db *gorm.DB) productRepositoeyDB {
+func NewProductRepositoeyDB(db *gorm.DB) ProductRepository {
 	db.AutoMigrate(&product{})
 	mockData(db)
-	return productRepositoeyDB{db: db}
+	return productRepositoryDB{db: db}
 }
 
 func mockData(db *gorm.DB) error {
@@ -41,7 +41,7 @@ func mockData(db *gorm.DB) error {
 
 }
 
-func (r productRepositoeyDB) GetProducts() (products []product, err error) {
+func (r productRepositoryDB) GetProducts() (products []product, err error) {
 
 	err = r.db.Order("quantity desc").Limit(30).Find(&products).Error
 
