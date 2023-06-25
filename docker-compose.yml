@@ -10,13 +10,13 @@ services:
       - ./config/redis.conf:/redis.conf
     command: redis-server /redis.conf
     
-  k6:
-    image: loadimpact/k6
-    container_name: k6
-    environment:
-      - K6_OUT=influxdb=http://influxdb:8086/k6
-    volumes:
-      - ./scripts:/scripts
+  # k6:
+  #   image: loadimpact/k6
+  #   container_name: k6
+  #   environment:
+  #     - K6_OUT=influxdb=http://influxdb:8086/k6
+  #   volumes:
+  #     - ./scripts:/scripts
     
   influxdb:
     image: influxdb:1.8.10
@@ -47,6 +47,8 @@ services:
       - MARIADB_ROOT_PASSWORD=Bossza555
       - MARIADB_DATABASE=redistest
     ports:
-      - 3306:3306
+      - 3307:3306
+    expose:
+      - 3307
     volumes:
       - ./data/mariadb:/var/lib/mysql
