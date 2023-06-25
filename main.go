@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"goredis/repositories"
 
+	"github.com/go-redis/redis/v8"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -12,8 +13,9 @@ func main() {
 
 	db := initDatabase()
 
-	db.AutoMigrate(&product{})
-	productRepo := repositories.NewProductRepositoryRedis(db)
+	redisClient := initRedis()
+
+	productRepo := repositories.NewProductRepositoryRedis(db, redisClient)
 
 	products, err := productRepo.GetProducts()
 
@@ -40,4 +42,10 @@ func initDatabase() *gorm.DB {
 		panic(err)
 	}
 	return db
+}
+
+func initRedis() *redis.Client {
+	return redis.NewClient(&redis.Options{
+		Addr: "localhost:6379",
+	})
 }
